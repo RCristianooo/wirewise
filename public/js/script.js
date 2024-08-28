@@ -15,6 +15,14 @@ function sendMsg(userMsg){
     chatContainer.appendChild(msgElement);
 }
 
+function chatbotResponse(userMsg){
+    let msgElement = document.createElement('div');
+
+    msgElement.innerHTML = "<span> Chatbot: </span>"+
+                            "<span>" +userMsg+ "</span>"
+    chatContainer.appendChild(msgElement)
+}
+
 
 sendBtn.addEventListener('click', function(e){
     let userMsg = textbox.value;
@@ -26,5 +34,6 @@ sendBtn.addEventListener('click', function(e){
         user.message = userMsgTxt;
         textbox.value = "";
         sendMsg(userMsgTxt);
+        chatbotResponse(userMsgTxt);
     }
 })
