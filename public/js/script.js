@@ -3,6 +3,12 @@ let textbox = document.getElementById('textbox');
 let chatContainer = document.getElementById('chatContainer');
 let user = {message:""};
 
+let arrayOfPossibleMsg = [
+    {message: "hi", response: "Hello there!"},
+    {message: "how are you?", response: "I am a bot, please ask me questions electrical related!"},
+    {message: "what is your name?", response: "I'm Wirewise, a chatbot!"},
+]
+
 
 function sendMsg(userMsg){
     let msgElement = document.createElement('div');
@@ -16,10 +22,26 @@ function sendMsg(userMsg){
 }
 
 function chatbotResponse(userMsg){
+
+    let chatbotMsg = "";
+    if (userMsg == "hello"){
+        chatbotMsg = "Hello"
+    } else if (userMsg == "how are you?") {
+        chatbotMsg = "I am a Chatbot! Ready to answer any of your burning questions!"
+    } else if (userMsg.length > 5) {
+        let result = arrayOfPossibleMsg.filter(val => val.message.includes(userMsg.toLowerCase()));
+
+        if(result.length > 0){
+            let response = result[0].response;
+            chatbotMsg = response;
+        }
+    }
+
     let msgElement = document.createElement('div');
 
     msgElement.innerHTML = "<span> Chatbot: </span>"+
-                            "<span>" +userMsg+ "</span>"
+                            "<span>" +chatbotMsg+ "</span>";
+
     chatContainer.appendChild(msgElement)
 }
 
