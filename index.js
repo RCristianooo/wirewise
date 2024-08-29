@@ -14,3 +14,11 @@ app.listen(2893);
 app.get('/', function(req, res){
     res.render('pages/index');
 });
+
+app.get('/aboutus', function(req, res){
+    res.render('pages/aboutus');
+})
+
+app.get('/contact', function(req, res){
+    res.render('pages/contact');
+})

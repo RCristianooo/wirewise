@@ -59,8 +59,9 @@ function chatbotResponse(userMsg){
 
 
     setTimeout(() => {
-        msgElement.animate([{easing:"ease-in", opacity:0.4}, {opacity:1}], {duration:1000})
+        msgElement.animate([{easing:"ease-in", opacity:0.4}, {opacity:1}], {duration:1000});
         chatContainer.appendChild(msgElement);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
     }, 2000);   
 }
 
