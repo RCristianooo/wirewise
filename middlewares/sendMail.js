@@ -65,3 +65,5 @@ await transport.sendMail({
 })
 
 };
+
+export default sendMail;

@@ -9,6 +9,9 @@ dotenv.config({ path: "./config/.env" })
 
 const app = express();
 
+//using middlewares
+app.use(express.json());
+
 //importing routes
 import userRoutes from "./routes/user.js"
 
