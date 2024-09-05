@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv'
 import connectDB from './config/database.js';
+import cors from "cors";
 
 // const express = require("express");
 // const ejs = require("ejs");
@@ -11,6 +12,7 @@ const app = express();
 
 //using middlewares
 app.use(express.json());
+app.use(cors())
 
 //importing routes
 import userRoutes from "./routes/user.js"
