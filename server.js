@@ -14,9 +14,11 @@ app.use(express.json());
 
 //importing routes
 import userRoutes from "./routes/user.js"
+import chatRoutes from "./routes/chat.js"
 
 //using routes
 app.use("/api/user", userRoutes)
+app.use("/api/chat", chatRoutes)
 
 // app.use(express.static("public"));
 
