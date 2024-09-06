@@ -23,8 +23,33 @@ export const UserProvider = ({ children }) => {
             setBtnLoading(false);
         }
     }
+
+    const [user, setUser] = useState([])
+    const [isAuth, setIsAuth] = useState(false)
+
+    async function verifyUser(otp, navigate) {
+        const verifyToken = localStorage.getItem("verifyToken")
+        setBtnLoading(true);
+
+        if(!verifyToken) return toast.error("Please give token")
+        try {
+            const { data } = await axios.post(`${server}/api/user/verify`, { otp, verifyToken });
+
+            toast.success(data.message);
+             localStorage.clear()
+            localStorage.setItem("token", data.token);
+            navigate("/");
+            setBtnLoading(false);
+            setIsAuth(true)
+            setUser(data.user)
+        } catch (error) {
+            const errorMessage = error?.response?.data?.message || "An unexpected error occurred. Please try again later.";
+            toast.error(errorMessage);
+            setBtnLoading(false);
+        }
+    }
     return (
-        <UserContext.Provider value={{ loginUser, btnLoading }}>
+        <UserContext.Provider value={{ loginUser, btnLoading, isAuth, setIsAuth, user, verifyUser }}>
             {children}
             <Toaster />
         </UserContext.Provider>
