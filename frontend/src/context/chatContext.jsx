@@ -2,7 +2,7 @@ import { createContext, useState } from "react"
 
 const ChatContext = createContext();
 
-export const ChatProvider = ({children}) => {
+export const ChatProvider = ({ children }) => {
         const [messages, setMessages] = useState([]);
         const [prompt, setPrompt] = useState("");
         const [newRequestLoading, setNewRequestLoading] = useState(false);
@@ -13,10 +13,10 @@ export const ChatProvider = ({children}) => {
             setPrompt("");
             try {
                 const response = await axios({
-                    url:`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`,
-                    method:"post",
-                    data:{
-                        contents:[{ parts:[{ text: prompt }] }],
+                    url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`,
+                    method: "post",
+                    data: {
+                        contents: [{ parts:[{ text: prompt }] }],
                     },
                 });
 

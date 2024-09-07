@@ -56,8 +56,8 @@ const home = () => {
 
       <div className="fixed bottom-0 right-0 left-auto p-4 bg-gray-900 w-full md:w-[75%]">
         <form className='flex justify-center items-center' >
-          <input type="text" placeholder='Enter a prompt here' value={prompt} onChange={e => setPrompt(e.target.value)} required />
-          <button className='p-4 bg-gray-700 rounded-r text-2xl text-white' ><IoMdSend/></button>
+          <input type="text" placeholder='Enter a prompt here' value={prompt} onChange={(e) => setPrompt(e.target.value)} required />
+          <button className='p-4 bg-gray-700 rounded-r text-2xl text-white'><IoMdSend/></button>
         </form>
       </div>
     </div>
