@@ -1,11 +1,12 @@
-import { createContext, useState } from "react"
+import axios from "axios";
+import { createContext, useContext, useState } from "react"
 
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-        const [messages, setMessages] = useState([]);
-        const [prompt, setPrompt] = useState("");
-        const [newRequestLoading, setNewRequestLoading] = useState(false);
+    const [messages, setMessages] = useState([]);
+    const [prompt, setPrompt] = useState("");
+    const [newRequestLoading, setNewRequestLoading] = useState(false);
 
         async function fetchResponse(){
             if(prompt === "") return alert("Write prompt");
@@ -16,13 +17,14 @@ export const ChatProvider = ({ children }) => {
                     url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`,
                     method: "post",
                     data: {
-                        contents: [{ parts:[{ text: prompt }] }],
+                        contents: [{ parts: [{ text: prompt }] }],
                     },
                 });
 
                 const message = {
                     question: prompt,
-                    answer: response["data"]["candidates"][0]["content"]["parts"][0]["text"],
+                    answer: 
+                        response["data"]["candidates"][0]["content"]["parts"][0]["text"],
                 };
 
                 setMessages((prev) => [...prev, message]);

@@ -17,7 +17,7 @@ const home = () => {
 
   const { fetchResponse, messages, prompt, setPrompt, newRequestLoading } = ChatData();
   return (
-    <div className='flex h-screen bg-gray-900 text-white '>
+    <div className='flex h-screen bg-gray-900 text-white'>
       <Sidebar isOpen={isOpen} toggleSidebar = {toggleSidebar}/>
 
       <div className='flex flex-1 flex-col'>
@@ -29,24 +29,26 @@ const home = () => {
           <Header/>
 
           <div className='flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar'>
-            {
-              messages && messages.length > 0 ? messages.map((e, i) => (
-                <div key={i}>
-                  <div className='mb-4 p-4 rounded bg-blue-700 text-white' >
-                    <div className='bg-white p-2 rounded-full text-black text-2xl h-10'>
-                      <GrUserWorker/>
+            { messages && messages.length > 0 ? (
+                messages.map((e, i) => (
+                  <div key={i}>
+                    <div className='mb-4 p-4 rounded bg-blue-700 text-white' >
+                      <div className='bg-white p-2 rounded-full text-black text-2xl h-10'>
+                        <GrUserWorker/>
+                      </div>
+                      {e.question}
                     </div>
-                    {e.question}
-                  </div>
 
-                  <div className="mb-4 p-4 rounded bg-gray-700 text-white">
-                    <div className='bg-white p-2 rounded-full text-black text-2xl h-10'>
-                      <GiLightningSpanner/>
+                    <div className="mb-4 p-4 rounded bg-gray-700 text-white">
+                      <div className='bg-white p-2 rounded-full text-black text-2xl h-10'>
+                        <GiLightningSpanner/>
+                      </div>
+                      <p dangerouslySetInnerHTML={{ __html: e.answer }} ></p>
                     </div>
-                    <p dangerouslySetInnerHTML={{ __html: e.answer }} ></p>
                   </div>
-                </div>
-              )) : ( <p>No chat yet</p>
+                ))
+              ) : ( 
+              <p>No chat yet</p>
             )}
 
             {newRequestLoading && <LoadingSmall/>}
@@ -62,6 +64,6 @@ const home = () => {
       </div>
     </div>
   )
-}
+};
 
 export default home
