@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import { ChatData } from '../context/chatContext';
 import { GrUserWorker } from "react-icons/gr";
 import { GiLightningSpanner } from "react-icons/gi";
-import { LoadingSmall } from '../components/Loading';
+import { LoadingBig, LoadingSmall } from '../components/Loading';
 import { IoMdSend } from "react-icons/io";
 
 const home = () => {
@@ -15,7 +15,7 @@ const home = () => {
     setIsOpen(!isOpen);
   };
 
-  const { fetchResponse, messages, prompt, setPrompt, newRequestLoading } = ChatData();
+  const { fetchResponse, messages, prompt, setPrompt, newRequestLoading, loading } = ChatData();
 
     const submitHandler = (e) => {
       e.preventDefault();
@@ -44,8 +44,11 @@ const home = () => {
         <div className='flex-1 p-6 mb-20 md:mb-0'>
           <Header/>
 
-          <div className='flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar' ref={messagecontainerRef}>
-            { messages && messages.length > 0 ? (
+          { loading ? ( 
+            <LoadingBig/> 
+            ) : ( 
+              <div className='flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar' ref={messagecontainerRef}>
+              { messages && messages.length > 0 ? (
                 messages.map((e, i) => (
                   <div key={i}>
                     <div className='mb-4 p-4 rounded bg-blue-700 text-white flex gap-1'>
@@ -65,10 +68,11 @@ const home = () => {
                 ))
               ) : ( 
               <p>No chat yet</p>
-            )}
+              )}
 
-            {newRequestLoading && <LoadingSmall/>}
-          </div>
+              {newRequestLoading && <LoadingSmall/>}
+            </div>
+            )}
         </div>
       </div>
 

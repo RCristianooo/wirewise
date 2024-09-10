@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { UserData } from '../context/userContext';
 import { useNavigate } from 'react-router-dom';
+import { ChatData } from '../context/chatContext';
 
 const verify = () => {
     const [otp, setOtp] = useState("");
 
     const { verifyUser, btnLoading } = UserData();
 
-    const navigate = useNavigate()
+    const { fetchChats } = ChatData();
+
+    const navigate = useNavigate();
 
     const submitHandler = (e) => {
       e.preventDefault();
-      verifyUser(Number(otp), navigate);
+      verifyUser(Number(otp), navigate, fetchChats);
     };
   return (
     <div className='flex justify-center items-center h-screen'>

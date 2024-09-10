@@ -27,25 +27,26 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState([])
     const [isAuth, setIsAuth] = useState(false)
 
-    async function verifyUser(otp, navigate) {
+    async function verifyUser(otp, navigate, fetchChats) {
         const verifyToken = localStorage.getItem("verifyToken")
         setBtnLoading(true);
 
         if(!verifyToken) return toast.error("Please give token")
         try {
-            const { data } = await axios.post(`${server}/api/user/verify`, { otp, verifyToken });
+          const { data } = await axios.post(`${server}/api/user/verify`, { otp, verifyToken });
 
-            toast.success(data.message);
-             localStorage.clear()
-            localStorage.setItem("token", data.token);
-            navigate("/");
-            setBtnLoading(false);
-            setIsAuth(true)
-            setUser(data.user)
+          toast.success(data.message);
+          localStorage.clear();
+          localStorage.setItem("token", data.token);
+          navigate("/");
+          setBtnLoading(false);
+          setIsAuth(true);
+          setUser(data.user);
+          fetchChats();
         } catch (error) {
-            const errorMessage = error?.response?.data?.message || "An unexpected error occurred. Please try again later.";
-            toast.error(errorMessage);
-            setBtnLoading(false);
+          const errorMessage = error?.response?.data?.message || "An unexpected error occurred. Please try again later.";
+          toast.error(errorMessage);
+          setBtnLoading(false);
         }
     }
     const [loading, setLoading] = useState(true)
@@ -68,11 +69,20 @@ export const UserProvider = ({ children }) => {
         }
     }
 
+    const logoutHandler = (navigate) => {
+        localStorage.clear();
+
+        toast.success("Logged out");
+        setIsAuth(false);
+        setUser([]);
+        navigate("/login");
+    }
+
     useEffect(() => {
         fetchUser()
     }, [])
     return (
-        <UserContext.Provider value={{ loginUser, btnLoading, isAuth, setIsAuth, user, verifyUser, loading, }}>
+        <UserContext.Provider value={{ loginUser, btnLoading, isAuth, setIsAuth, user, verifyUser, loading, logoutHandler, }}>
             {children}
             <Toaster />
         </UserContext.Provider>
