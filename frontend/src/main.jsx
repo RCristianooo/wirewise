@@ -5,7 +5,7 @@ import './index.css';
 import { UserProvider } from './context/userContext.jsx';
 import { ChatProvider } from './context/chatContext.jsx';
 
-export const server = "http://localhost:2893";
+export const server = "https://wirewise.onrender.com";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
