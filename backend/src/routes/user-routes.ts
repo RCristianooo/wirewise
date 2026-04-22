@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { getAllUsers, userLogin, userSignup } from "../controllers/user-controllers.js";
+import { 
+    getAllUsers, 
+    userLogin, 
+    userSignup 
+} from "../controllers/user-controllers.js";
 import { 
     loginValidator, 
     signupValidator, 
